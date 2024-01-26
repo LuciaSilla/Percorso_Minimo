@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>PROVA GRAFO</h1>
+   
+    <script>
+      
+  const graph = {
+  nodes: ['A', 'B', 'C', 'D', 'E','F','G'], //nodi 
+  edges: [
+    { source: 'A', target: 'B', length: 1 }, //arco dal nodo A al nodo B
+    { source: 'A', target: 'C', length: 3 },
+    { source: 'B', target: 'D', length: 2 },
+    { source: 'C', target: 'D', length: 3 },
+    { source: 'D', target: 'E', length: 4 },
+    { source: 'D', target: 'F', length: 2 },
+    { source: 'E', target: 'G', length: 1 },
+    { source: 'F', target: 'G', length: 6 },
+  ],
+};
+
+
+
+const distances = {};
+const previous = {};
+const visited = new Set(); // oggetto di nodi che sono stati visitati.
+const unvisited = new Set(graph.nodes); // nodi che devono ancora essere visitati, contenente inizialmente tutti i nodi del grafo.
+const startNode = 'A'; // nodo di partenza 
+graph.nodes.forEach((node) => {
+  distances[node] = Infinity; // la distanza dei nodi viene settata a infinito in quanto ancora non calcolata
+  previous[node] = null;
+});
+distances[startNode] = 0; // la distanza tra il nodo di partenza e se stesso è zero 
+
+function getMinDistanceNode(distances, visited) {
+  let minDistance = Infinity;
+  let minNode = null;
+
+  for (const node in distances) {
+    if (!visited.has(node) && distances[node] <= minDistance) { //verifica se il nodo corrente non è stato ancora visitato e se la distanza da quel nodo è minore della distanza attuale
+      minDistance = distances[node]; // aggiorno la distanza minima 
+      minNode = node; //il nodo corrente diventa il nodo con la distanza minima 
+    }
+  }
+
+  return minNode;
+}
+
+let totalDistance = 0; // la distanza totale tra il nodo di partenza e quello di arrivo 
+
+while (unvisited.size > 0) {
+  const currentNode = getMinDistanceNode(distances, visited); // calcolo la distanza minima finchè tutti i nodi non sono stati visitati 
+  unvisited.delete(currentNode); // quando un nodo è stato visitato lo elimino dalla lista di quelli non visitati
+
+  for (const edge of graph.edges) {
+    if (edge.source === currentNode) { // controlla se il nodo d'origine dell'arco corrisponde al nodo corrente 
+      const distance = distances[currentNode] + edge.length;
+      if (distance < distances[edge.target]) { // se la distanza calcolata è minore della distanza attuale registrata per il nodo di arrivo aggiorna la distanza 
+        distances[edge.target] = distance; // aggiorna la distanza 
+        previous[edge.target] = currentNode; // registra il nodo corrente come precedente del nodo di destinazione
+      }
+    }
+  }
+
+  visited.add(currentNode); // il nodo viene aggiunto alla lista dei visitati
+  totalDistance = distances[currentNode]; // Aggiornamento della distanza totale
+}
+
+//calcolo del percorso a partire dal nodo finiale a quello iniziale 
+function getPath(previous, endNode) {
+  const path = [];
+  let currentNode = endNode;
+
+  while (previous[currentNode] !== null) {
+    path.unshift(currentNode);
+    currentNode = previous[currentNode];
+  }
+
+  path.unshift(currentNode);
+  return path;
+}
+
+
+const endNode = 'G';
+
+const path = getPath(previous, endNode);
+console.log(path); // ['A', 'B', 'C', 'D', 'E']
+console.log(totalDistance);
+    </script>
+</body>
+</html>
