@@ -21,7 +21,7 @@ Per mantenere il progetto organizzato facilitandone la navigazione, il codice è
 	. Il pattern di autenticazione viene utilizzato per verificare la correttezza delle credenziali fornite durante il login e per generare un token di sessione per l'autenticazione dell'utente.
 	. Il pattern CRUD (Create, Read, Update, Delete) viene utilizzato per creare un nuovo utente nel database durante la registrazione e per ottenere un utente dal 	database durante il login.
 
-        2b. controllers/graphs.ts
+        2b.. controllers/graphs.ts
 	Questo codice definisce un insieme di controller che gestiscono le richieste relative ad un grafo. Qui non vengono utilizzati pattern specifici, ma il codice include delle pratiche 	di organizzazione e 
   leggibilità:
 	. Separazione delle responsabilità: Il codice è organizzato in diverse funzioni che gestiscono le richieste HTTP e richiamano il servizio appropriato per eseguire le operazioni 	sul database.
