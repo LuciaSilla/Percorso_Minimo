@@ -12,7 +12,7 @@ Per mantenere il progetto organizzato facilitandone la navigazione, il codice è
 1. Node-modules: contiene tutti i moduli e le dipendenze esterne utilizzate nel progetto. Questo rende più facile gestire le versioni delle dipendenze.
 2. src (souce): continete il codice sorgente effettivo del progetto. Qui sono stati inseriti i file in typescript per implementare la logica del progetto. il codice sorgente è stato a sua volta organizzato in sottocartelle (controllers,db,heleprs,middlewares, router) all'interno di "src" a seconda della sua funzionalità.
 	
-	2a. controllers/authentication.ts
+ 2a. controllers/authentication.ts
 	Questo codice include due funzioni di controllo per la gestione del login e della registrazione degli utenti. 
 	Qui vengono utilizzati alcuni pattern comuni nel contesto di sviluppo web:
 	. Il pattern di importazione viene utilizzato per importare i moduli necessari e le funzioni specifiche dai moduli.
